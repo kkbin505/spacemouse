@@ -1,3 +1,10 @@
+# Add 3 DOF branch
+
+I combine the hardware from https://github.com/FaqT0tum/Orbion_Space_Mouse_OLD with this code. 
+The space mouse from this repo only has 3 DOFs: X and Y from the analog gimbal, and one rotation from the encoder. I changed the kinematics from 6 DOFs to 3 DOFs. I deleted the translation DOFs and kept only the rotation DOF.
+This is good enough for me: the space mouse controls the rotational movement, while the 2D mouse controls translation and zoom.
+Yes, I use both hands to control the view.
+
 # Newest Stable Release
 Check-out the [Release Page](https://github.com/AndunHH/spacemouse/releases) for the newest releases and updates!
 
