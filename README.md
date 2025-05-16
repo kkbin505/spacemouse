@@ -10,8 +10,10 @@ Arduino Pro Micro
 编码器
 
 硅胶线
-![SpaceMouse](https://github.com/user-attachments/assets/59112adb-ec40-4f8e-bfda-a415da8f09ed)
 
+
+
+![Uploading 空间鼠标.jpg…]()
 
 
 ## Features of the 3 DOF mouse
