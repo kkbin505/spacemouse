@@ -13,7 +13,8 @@ Arduino Pro Micro
 
 
 
-![Uploading 空间鼠标.jpg…]()
+![空间鼠标](https://github.com/user-attachments/assets/0c254c2a-c071-4fe1-9a34-733a87cde590)
+
 
 
 ## Features of the 3 DOF mouse
