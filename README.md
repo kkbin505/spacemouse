@@ -1,46 +1,23 @@
-# New Update: Support for neopixel led ring
+# 简化为3自由度的空间鼠标
 
-December 2024 Update: Support for LED rings like a neopixel! 
+简化了设计，只用一个摇杆和一个编码器实现3个转动自由度，需要搭配3D connextion软件使用，不抢鼠标
 
-![Overview of the spacemouse with neopixel led ring](pictures/neopixel-3dof-mouse.png)
-The adafruit neopixel led ring with an inner diameter of 52.3 mm fits well.
+原料：
+Arduino Pro Micro
 
-Filming the LEDs "in action" is very hard, maybe you can get an idea:
-![animated LED ring animation](pictures/NeoPixelRing-lightning.gif)
+游戏手柄摇杆
 
-# Open Source six degree of freedom (6 DOF) mouse with keys, encoder and more
-Repository for a 3D mouse, which emulates a 3Dconnexion "Space Mouse Pro wireless". (This repository is NOT affiliated with 3Dconnexion. We just reverse-engineered the USB protocoll.)
+编码器
 
-![Overview over the 6 DOF mouse](pictures/Ergonomouse-Advertiser.png)
+硅胶线
+![SpaceMouse](https://github.com/user-attachments/assets/59112adb-ec40-4f8e-bfda-a415da8f09ed)
 
-It is based on four joysticks with additional keys or an encoder.
 
-![overview](pictures/overview.jpg)
 
-This repository for the source code is based on the work by [TeachingTech](https://www.printables.com/de/model/864950-open-source-spacemouse-space-mushroom-remix) and many other contributors, as seen in [the history](#History). 
-
-To see all features in place, like the buttons and the encoder, check out the different versions by Jose L. González, like the 
- [ErgonoMouse MK XX - 6DOF Controller Knob & Joystick with Wheel, Buttons & Keys](https://www.printables.com/de/model/973725-ergonomouse-mk-xx-free-version-6dof-controller-kno): 
-
-![ErgonoMouse MK XX - 6DOF Controller Knob & Joystick with Wheel, Buttons & Keys](pictures/ergonomouse.webp)
-
-## Features of the 6 DOF mouse
-- Source code for an Arduino Pro Micro to read four joysticks and calculate the kinematics
+## Features of the 3 DOF mouse
+- Source code for an Arduino Pro Micro to read joysticks and calculate the kinematics
 - Emulation of the USB identification and the HID interface to behave like an original space mouse
-- Advanced USB settings for linux users: Implemented jiggling or declaring the HID reports as relative or absolute values
-- Semi-Automatic calibration methods to find the correct pin outs and measurement ranges
-- Debug outputs can be requested over the serial interface during run time, see [config_sample.h](spacemouse-keys/config_sample.h#L36) 
-- Over ten keys may be reported to the PC via USB and may be evaluated by the original driver software
-- "Kill-Keys" may disable translation or rotation directly in the mouse
-- An encoder wheel can be used to replace one axis and allow e.g. zooming
-- Check out the [config_sample.h](spacemouse-keys/config_sample.h) for more informations about configurable elements and extensive debug outputs
-- LED can be enabled by the PC driver
-- Support for a LED ring, as supported by the FastLED library
-
-Wanted features:
-- Reverse Direction and Speed options in 3dConnexion Software is not working, because our spacemouse is not accepting this settings.
-
-Purchasing the [electronics](#electronics) and [printing some parts](#printed-parts) is not scope of this repository. We start with the software. Feel free to read a build report in the Wiki: [Building an Ergonomouse](https://github.com/AndunHH/spacemouse/wiki/Ergonomouse-Build)
+- An encoder wheel can be used to replace Z axis
  
 ## Macro-Pad for CAD users
 The original 3Dconnexion windows driver is very elegant to detect which programm you are running and offering custom actions for the keys on a space mouse. You can utilize this behavior and build a space mouse with keys, just without the central part, the space mouse itself. You are left with keys, that you can assign to actions for your CAD programm. This comes handy, if your original spacemouse doesn't have enough keys. In this case your PC will see an additional mouse where only the keystrokes are send and evaluated.
@@ -117,53 +94,18 @@ You will also need to download and install the [3DConnexion software](https://3d
 
 If all goes well, the 3DConnexion software will show a SpaceMouse Pro wireless when the Arduino is connected.
 
-## spacenav for linux users
-Checkout https://wiki.freecad.org/3Dconnexion_input_devices and https://github.com/FreeSpacenav/spacenavd.
-
 # Software Main Idea
-1. The software reads the eight ADC values of the four joy sticks
+1. The software reads the eight ADC values of the joy stick and encoder
 2. During start-up the zero-position of the joystick is measured and subtracted from the adc-value. -> The values now range from e.g. -500 to +500
 3. A dead zone in the middle is applied to avoid small noisy movements. (E.g. every value between +/- 3 is fixed to zero)
 4. The movement of the joysticks is mapped from the original about ca. +/- 500 digits to exactly +/- 350. (Therefore the real min and max values will be calibrated) Now all further calculations can be done with this normalized values between +/-350.
-5. We calculate the translation and rotation based on this.
-6. Applying the modifiers to minimize very small rotations or translations.
-7. Kill, swap or invert movements
-8. Sending the velocities and keys to the PC, see also  [SpaceNavigator.md](SpaceNavigator.md) for further details about the emulated USB HID.
+5. We calculate the rotation based on this.
+6. Sending the velocities and keys to the PC, see also  [SpaceNavigator.md](SpaceNavigator.md) for further details about the emulated USB HID.
 
 # Printed parts
-There are many parts and remixes available. A very good starting point is the Part [Open source SpaceMouse - Space Mushroom remix](https://www.printables.com/de/model/864950-open-source-spacemouse-space-mushroom-remix) by Teaching Tech. Check out the many remixes, especially if you want to use other joysticks modules!
 
-Here are some of the remixes or additions that are used with this software:
+https://makerworld.com.cn/zh/models/1229254-3dkong-jian-shu-biao#profileId-1309785
 
-* [ErgonoMouse MK XX - 6DOF Controller Knob & Joystick with Wheel, Buttons & Keys](https://www.printables.com/de/model/973725-ergonomouse-mk-xx-free-version-6dof-controller-kno) by Jose L. González (Free and premium version available)
-* [Lid with mounting for 4 MX Switch adapter](https://www.printables.com/de/model/883967-tt-spacemouse-v2-lid-with-mounting-for-4-mx-switch) by LivingTheDream
-* [SpaceMouse Mini - Slim profile, with easier assembly and various improvements - v3](https://www.printables.com/de/model/908684-spacemouse-mini-slim-profile-with-easier-assembly) by Doug Joseph
-* [Hall Effect Joysticks For the Space Mouse](https://www.printables.com/de/model/918029-hall-effect-joysticks-for-the-space-mouse) by Kempy
-
-
-# Electronics and pin assignment
-
-The spacemouse is connected to an arduino Pro Micro 16 Mhz. Check out the wiring diagram by [TeachingTech](https://www.printables.com/de/model/864950-open-source-spacemouse-space-mushroom-remix/) or with this added keys and the added neopixel ring.
-![WiringSpaceMouse](pictures/fritzing-electronics.png)
-
-The calculations in the program expect AX to be the vertical joystick in front of you and AY the horizontal in front of you. B, C and D are clockwise around the spacemouse.
-Maybe your joystick axis are named X and Y in an other orientation. That doesn't matter. Connect them and use the config.h file to put the pin the vertical joystick in front of you (=AX) to the first position. In teaching techs example, this is A1, even though his joystick is labeled "y". See also the [wiki](https://github.com/AndunHH/spacemouse/wiki/Ergonomouse-Build#calibration) for some additional pictures.
-
-![analog](pictures/pins-axis.png)
-
-The calculation in this programm results in X, Y and Z calculated as shown in the middle of the picture.
-If this doesn't suit your programm change it by using the INVX or SWITCHYZ afterwards.
-
-## Kinematics
-With the axis defined as shown in the picture above, the calculations for translation and rotation are as follows:
-```
-TRANSX = -CY + AY
-TRANSY = -BY + DY
-TRANSZ = -AX - BX - CX - DX
-ROTX = -CX + AX
-ROTY = -BX + DX
-ROTZ = AY + BY + CY + DY
-```
 # See also
 
 Here are some other projects with regard to space mice. The arrow indicates what is emulated. 
@@ -177,23 +119,6 @@ Here are some other projects with regard to space mice. The arrow indicates what
 * [Orbion The OpenSource 3D Space Mouse](https://github.com/FaqT0tum/Orbion_3D_Space_Mouse) -> Mouse and Keyboard
 * 
 
-
-# History
-This code is the combination of multiple works by others. This list summarizes what happened before this github repository was started:
-1. Original code for the Space Mushroom by Shiura on Thingiverse: https://www.thingiverse.com/thing:5739462
-2. The next two from the comments on the instructables page: https://www.instructables.com/Space-Mushroom-Full-6-DOFs-Controller-for-CAD-Appl/
-3. and the comments of Thingiverse: https://www.thingiverse.com/thing:5739462/comments
-4. Code to emulate a 3DConnexion Space Mouse by jfedor: https://pastebin.com/gQxUrScV
-5. This code was then remixed by BennyBWalker to include the above two sketches: https://pastebin.com/erhTgRBH
-6. Four joystick remix code by fdmakara: https://www.thingiverse.com/thing:5817728
-7. [Teaching Techs work](https://www.printables.com/de/model/864950-open-source-spacemouse-space-mushroom-remix) involves mixing all of these: 
-The basis is fdmakara's four joystick movement logic, with jfedor/BennyBWalker's HID SpaceMouse emulation. The four joystick logic sketch was setup for the joystick library instead of HID, so elements of this were omitted where not needed.  The outputs were jumbled no matter how Teaching Tech plugged them in, so Teaching Tech spent a lot of time adding debugging code to track exactly what was happening. On top of this, Teching Tech has added more control of speed/direction and comments/links to informative resources to try and explain what is happening in each phase.
-8. Code to include meassured min and max values for each Joystick by Daniel_1284580 (In Software Version V1 and newer)
-9. Improved code to make it more userfriendly by Daniel_1284580 (In Software Version V2 and newer)
-10. Improved Code, improved comments and added written tutorials in comments, by [LivingTheDream](https://www.printables.com/de/model/883967-tt-spacemouse-v2-lid-with-mounting-for-4-mx-switch/files) Implemented new algorithm "modifier function" for better motioncontrol by Daniel_1284580 (In Software Version V3)
-11. Moved the Deadzone detection into the inital ADC conversion and calculate every value everytime and use the modifier for better seperation between the access, By Andun_HH.
-12. Added two additional buttons integrated into the knob to kill either translation or rotation at will and prevent unintended movements, by JoseLuisGZA and AndunHH.
-13. Added Encoder to use with a wheel on top of the main knob an simulate pulls on any of the axis (main use is simulating zoom like the mouse wheel), by [JoseLuizGZA](https://github.com/JoseLuisGZA/ErgonoMouse/) and rewritten by AndunHH.
 
 
 # License
