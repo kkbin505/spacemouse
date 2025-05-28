@@ -2,14 +2,17 @@
 
 简化了设计，只用一个摇杆和一个编码器实现3个转动自由度，需要搭配3D connextion软件使用，不抢鼠标
 
-原料：
-Arduino Pro Micro
+【手搓一个空间鼠标】 https://www.bilibili.com/video/BV1HwE4zrEH5/?share_source=copy_web&vd_source=4f14277a41ad80f6b36edd713a9a2882
 
-游戏手柄摇杆
+### 🧾 物料清单
 
-编码器
+| 序号 | 名称               | 数量         |
+|------|--------------------|--------------|
+| 1    | Arduino Pro Micro  | 1 个         |
+| 2    | 游戏手柄摇杆       | 1 个         |
+| 3    | 编码器             | 1 个         |
+| 4    | 硅胶线             | 若干         |
 
-硅胶线
 
 
 
